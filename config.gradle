@@ -1,0 +1,3 @@
+static def isNeedModule(modulePluginId){
+    return modulePluginId=="com.android.library"
+}

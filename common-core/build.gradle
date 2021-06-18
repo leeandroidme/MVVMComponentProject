@@ -1,0 +1,67 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.newland.core"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation deps.kotlin.stdlib
+    implementation deps.core_ktx
+    implementation deps.appcompat
+    implementation deps.material
+    implementation deps.constraintlayout
+    testImplementation deps.junit
+    androidTestImplementation deps.ext_junit
+    androidTestImplementation deps.espresso_core
+
+    api deps.coroutines.android
+    //---------------------------lifecycle viewmodel livedata room----------------------------
+    api deps.lifecycle.viewmodel_ktx
+    api deps.lifecycle.runtime_ktx
+    api deps.lifecycle.livedata_ktx
+
+    api deps.room.ktx
+    api deps.room.runtime
+    kapt(deps.room.compiler)
+
+    //--------------------------------koin----------------------------
+    api deps.koin.android
+    api deps.koin.androidx_scope
+    api deps.koin.androidx_viewmodel
+
+    //--------------------------------retrofit2 okhttp3----------------------------
+    api deps.retrofit.runtime
+    api deps.retrofit.converter_gson
+    api deps.okhttp.runtime
+    api deps.okhttp.logging_interceptor
+}

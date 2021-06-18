@@ -1,0 +1,60 @@
+if(isNeedRegisterModule.toBoolean()){
+    apply plugin: 'com.android.library'
+}else{
+    apply plugin: 'com.android.application'
+}
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.newland.register"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    sourceSets{
+        main {
+            if (!isNeedRegisterModule.toBoolean()) {
+                //如果是library，则编译manifest下AndroidManifest.xml
+                manifest.srcFile 'src/main/manifest/AndroidManifest.xml'
+            } else {
+                //如果是application，则编译主目录下AndroidManifest.xml
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation deps.kotlin.stdlib
+    implementation deps.core_ktx
+    implementation deps.appcompat
+    implementation deps.material
+    implementation deps.constraintlayout
+    testImplementation deps.junit
+    androidTestImplementation deps.ext_junit
+    androidTestImplementation deps.espresso_core
+
+    implementation project(':common-core')
+}

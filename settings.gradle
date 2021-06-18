@@ -1,0 +1,5 @@
+rootProject.name = "MvvmComponentProject"
+include ':app'
+include ':register'
+include ':login'
+include ':common-core'
